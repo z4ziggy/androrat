@@ -34,7 +34,12 @@
 		<link>
 			<name>INOUT_LIBRARY</name>
 			<type>2</type>
-			<locationURI>INOUT_LIBRARY</locationURI>
+			<location>../src/AndroratServer/inout</location>
+		</link>
+		<link>
+			<name>inout</name>
+			<type>2</type>
+			<location>../src/AndroratServer/inout</location>
 		</link>
 	</linkedResources>
 	<variableList>

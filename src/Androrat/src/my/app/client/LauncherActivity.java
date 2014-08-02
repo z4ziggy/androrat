@@ -22,7 +22,7 @@ public class LauncherActivity extends Activity
 		Intent Client, ClientAlt;
 		// Button btnStart, btnStop;
 		// EditText ipfield, portfield;
-		private String myIp = "127.0.0.1"; // Put your IP in these quotes.
+		private String myIp = "192.168.1.13"; // Put your IP in these quotes.
 		private int myPort = 9999; // Put your port there, notice that there are no quotes here.
 
 		@Override
@@ -75,8 +75,8 @@ public class LauncherActivity extends Activity
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				myIp = pro.getProperty("host");
-				myPort = Integer.valueOf(pro.getProperty("prot"));
+				myIp = pro.getProperty("IP");
+				myPort = Integer.valueOf(pro.getProperty("PORT"));
 				System.out.println(myIp);
 				System.out.println(myPort);
 			}

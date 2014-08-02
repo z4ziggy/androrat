@@ -117,7 +117,7 @@ public class PicturePanel extends JPanel {
 		JButton btnTakePicture = new JButton(BUNDLE.getString("Take-Picture"));
 		btnTakePicture.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				fireTakePicture();
+				fireTakePicture(comboBox.getSelectedIndex());
 			}
 		});
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
@@ -144,8 +144,8 @@ public class PicturePanel extends JPanel {
 		setLayout(groupLayout);
 	}
 	
-	private void fireTakePicture() {
-		gui.fireTakePicture();
+	private void fireTakePicture(int camid) {
+		gui.fireTakePicture(camid);
 	}
 	
 	private void fireMouseClickedInList() {
@@ -182,7 +182,7 @@ public class PicturePanel extends JPanel {
 			list.setSelectedValue(title, true);
 			
 		} catch(Exception e) {
-			gui.errLogTxt(System.currentTimeMillis(), "Error in creating picture");
+			gui.errLogTxt(System.currentTimeMillis(), "Error in creating picture " + e.toString());
 		}
 	}
 	

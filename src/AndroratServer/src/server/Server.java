@@ -68,6 +68,7 @@ public class Server implements Controler {
 			} catch (Exception e) {
 				port = 9999;
 			}
+			if (port==0) port = 9999;
 		}
 		
 		Nclient = 0;

