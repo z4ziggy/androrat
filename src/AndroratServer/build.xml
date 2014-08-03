@@ -21,7 +21,8 @@
         <mkdir dir="bin"/>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="src">
-		    <include name="**/*.properties **/res/**"/>
+		    <include name="**/*.properties"/>
+		    <include name="**/res/**"/>
 
                 <exclude name="**/*.java"/>
             </fileset>
@@ -46,6 +47,15 @@
             <src path="inout"/>
             <classpath refid="AndroratServer.classpath"/>
         </javac>
+
+    <jar destfile="bin/AndroratServer.jar"
+         basedir="bin"
+         includes="**/*.class **/*.properties gui/**">
+         <manifest>
+            <attribute name="Main-Class" value="server.Server"/>
+       	 </manifest>
+    </jar>
+
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
     <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
@@ -66,13 +76,5 @@
             <classpath refid="AndroratServer.classpath"/>
         </java>
     </target>
-
-    <jar destfile="bin/AndroratServer.jar"
-         basedir="bin"
-	 includes="**/*.class **/*.properties gui/**">
-         <manifest>
-            <attribute name="Main-Class" value="server.Server"/>
-         </manifest>
-    </jar>
 
 </project>
