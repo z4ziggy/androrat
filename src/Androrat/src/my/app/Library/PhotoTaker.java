@@ -45,7 +45,7 @@ public class PhotoTaker {
 	
 	public boolean takePhoto(long camid) {
         if(!(ctx.getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) &&
-		(ctx.getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT)))
+		!(ctx.getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT)))
         	return false;
         Log.i("PhotoTaker", "Just before Open !");
         try {
