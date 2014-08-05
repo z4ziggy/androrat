@@ -131,7 +131,7 @@ public class FileTreePanel extends JPanel {
 		txtDir.setText("download/");
 		txtDir.setColumns(10);
 		
-		JLabel lblDownloadDirectory = new JLabel(BUNDLE.getString("Download-directory;")); //$NON-NLS-1$
+		JLabel lblDownloadDirectory = new JLabel(BUNDLE.getString("Download-directory")); //$NON-NLS-1$
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)

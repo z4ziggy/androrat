@@ -7,6 +7,7 @@ import gui.panel.FileTreePanel;
 import gui.panel.HomePanel;
 import gui.panel.MapPanel;
 import gui.panel.MonitorPanel;
+import gui.panel.ShellPanel;
 import gui.panel.PicturePanel;
 import gui.panel.SMSLogPanel;
 import gui.panel.SoundPanel;
@@ -55,6 +56,7 @@ public class UserGUI extends JFrame implements WindowListener {
 	private HomePanel homePanel;
 	private MapPanel mapPanel;
 	private SoundPanel soundPanel;
+	private ShellPanel shellPanel;
 	private PicturePanel picturePanel;
 	private FileTreePanel fileTreePanel;
 	private CallLogPanel callLogPanel;
@@ -123,6 +125,7 @@ public class UserGUI extends JFrame implements WindowListener {
 			if(videoPanel.getStreaming()) gui.fireStopVideoStream(imei, panChanMap.get(videoPanel));
 			videoPanel = null;
 		}
+		if(viewer instanceof ShellPanel) shellPanel = null;
 		if(viewer instanceof PicturePanel) picturePanel = null;
 		if(viewer instanceof FileTreePanel) fileTreePanel = null;
 		if(viewer instanceof CallLogPanel) callLogPanel = null;
@@ -179,6 +182,18 @@ public class UserGUI extends JFrame implements WindowListener {
 	public void fireStopGPSStreaming() {
 		gui.fireStopGPSStreaming(imei, panChanMap.get(mapPanel));
 	}
+	
+	//
+	// command shell
+	//
+	public void updateCommandOutput(byte[] output) {
+		if(shellPanel != null) shellPanel.updateCommandOutput(output);
+	}
+	
+	public void fireSendCommand(String cmd) {
+		gui.fireSendCommand(imei, cmd);
+	}
+	
 	
 	
 	// *********************
@@ -354,6 +369,10 @@ public class UserGUI extends JFrame implements WindowListener {
     	panChanMap.put(picturePanel, channel);
     }
     
+    public void saveShellChannel(int channel) {
+    	panChanMap.put(shellPanel, channel);
+    }
+    
     public void saveSoundChannel(int channel) {
     	panChanMap.put(soundPanel, channel);
     }
@@ -373,6 +392,13 @@ public class UserGUI extends JFrame implements WindowListener {
 			tabbedPane.addTab(BUNDLE.getString("Picture-viewer"), picturePanel);
 		}
 		tabbedPane.setSelectedComponent(picturePanel);
+	}
+	private void fireButtonSendCommand() {
+		if(shellPanel == null) {
+			shellPanel = new ShellPanel(this);
+			tabbedPane.addTab(BUNDLE.getString("Command-prompt"), shellPanel);
+		}
+		tabbedPane.setSelectedComponent(shellPanel);
 	}
 	
 	private void fireButtonFileTree() {
@@ -418,7 +444,7 @@ public class UserGUI extends JFrame implements WindowListener {
 	private void fireButtonStreamingVideo() {
 		if(videoPanel == null) {
 			videoPanel = new VideoPanel(this);
-			tabbedPane.addTab(BUNDLE.getString("Video player"), videoPanel);
+			tabbedPane.addTab(BUNDLE.getString("Video-player"), videoPanel);
 		}
 		tabbedPane.setSelectedComponent(videoPanel);
 	}
@@ -426,7 +452,7 @@ public class UserGUI extends JFrame implements WindowListener {
 	private void fireButtonSMS() {
 		if(smsPanel == null) {
 			smsPanel = new SMSLogPanel(this);
-			tabbedPane.addTab(BUNDLE.getString("SMS viewer"), smsPanel);
+			tabbedPane.addTab(BUNDLE.getString("SMS-viewer"), smsPanel);
 		}
 		tabbedPane.setSelectedComponent(smsPanel);
 	}
@@ -525,6 +551,14 @@ public class UserGUI extends JFrame implements WindowListener {
 		mntmPrendrePhoto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fireButtonTakePicture();
+			}
+		});
+
+		JMenuItem mntmCommandPrompt = new JMenuItem(BUNDLE.getString("Command-prompt")); //$NON-NLS-1$
+		mnRcuprationDeDonnes.add(mntmCommandPrompt);
+		mntmCommandPrompt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fireButtonSendCommand();
 			}
 		});
 		

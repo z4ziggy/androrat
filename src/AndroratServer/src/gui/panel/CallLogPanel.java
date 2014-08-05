@@ -109,7 +109,7 @@ public class CallLogPanel extends JPanel {
 		splitPane.setRightComponent(panel);
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), BUNDLE.getString("Optional-filters"), TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
-		JLabel lblTypeOfCall = new JLabel(BUNDLE.getString("Type-of-call;")); //$NON-NLS-1$
+		JLabel lblTypeOfCall = new JLabel(BUNDLE.getString("Type-of-call")); //$NON-NLS-1$
 		
 		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {BUNDLE.getString("All-calls"),BUNDLE.getString("received-call"), BUNDLE.getString("outgoing-call"), BUNDLE.getString("missed-call")}));
